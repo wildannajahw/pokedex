@@ -1,6 +1,7 @@
 import { lazy } from "react";
 import { useQuery } from "@apollo/client";
 import { NetworkStatus } from "@apollo/client";
+import { usePokemon } from "../components/MyPokemon/MyPokemon";
 
 import { GET_POKEMONS, PokemonData, PokemonVars } from "../query";
 import { Page } from "../components/commons/Page";
@@ -33,6 +34,8 @@ export default function App() {
   const loadingFirstTime = networkStatus === NetworkStatus.loading;
   const loadingFetchMore = networkStatus === NetworkStatus.fetchMore;
 
+  const { dataAsArray } = usePokemon();
+
   const fetchNext = () => {
     try {
       fetchMore({
@@ -45,7 +48,7 @@ export default function App() {
   };
   
   return (
-    <Page title="List Pokemon">
+    <Page title="List Pokemon" owned={dataAsArray.length}>
       {!loadingFirstTime && results?.length && <List data={results} />}
       {(loadingFirstTime || loadingFetchMore) && (
         <PokeCardLoader length={loadingFirstTime ? 10 : 4} />

@@ -1,13 +1,13 @@
 import styled from "@emotion/styled";
-import { Link, useRouteMatch } from "react-router-dom";
+import { Link, useMatch } from "react-router-dom";
 
 import { Box } from "../Box";
 import { Text } from "../Text";
 import { PageProps } from "./types";
 import { breakpoint } from "../../../utils/theme";
 
-const Page = ({ children, title }: PageProps) => {
-  let match = useRouteMatch("/pokebag");
+const Page = ({ children, title, owned }: PageProps) => {
+  let match = useMatch("/pokebag");
 
   return (
     <Main>
@@ -38,6 +38,17 @@ const Page = ({ children, title }: PageProps) => {
               sx={{ fontWeight: 400, textTransform: "capitalize" }}
             >
               {title}
+            </Text>
+          </Box>
+        ) : null}
+        {owned ? (
+          <Box sx={{ mb: 500 }}>
+            <Text
+              as="h1"
+              variant="heading"
+              sx={{ fontWeight: 400, textTransform: "capitalize" }}
+            >
+              Owned Pokemon: {owned}
             </Text>
           </Box>
         ) : null}

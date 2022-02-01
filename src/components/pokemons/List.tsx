@@ -31,11 +31,11 @@ export default function List({ data, isPokeBag }: ListProps) {
         }
         return (
           <Link
-            key={id}
+            key={nickname}
             to={{
               pathname: `/${name}`,
-              state: { image: image },
             }}
+            state={{ image: image }}
           >
             <PokeCard image={image} {...props} />
           </Link>

@@ -27,8 +27,8 @@ type LocationState = {
 };
 
 export default function DetailPage() {
-  let { id } = useParams<RouterParams>();
-  const { state } = useLocation<LocationState>();
+  let { id } = useParams() as RouterParams;
+  const { state } = useLocation();
   const { data, loading, error } = useQuery<PokemonDetail, PokemonVars>(
     GET_POKEMON,
     {
@@ -37,7 +37,7 @@ export default function DetailPage() {
       },
     }
   );
-  const { image: pokeImage } = state || {};
+  const { image: pokeImage } = state as LocationState|| {};
   const { pokemon } = data || {};
   const { types, moves } = pokemon || {};
 

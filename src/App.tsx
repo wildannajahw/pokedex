@@ -1,5 +1,5 @@
 import { lazy, Suspense } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 // import PageLoader from "./components/commons/Loader/PageLoader";
 
 const Home = lazy(
@@ -16,11 +16,11 @@ export default function App() {
   return (
     <Router>
       <Suspense fallback>
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/pokebag" component={Pokebag} />
-          <Route path="/:id" component={Detail} />
-        </Switch>
+        <Routes>
+          <Route path="/" element={<Home/>} />
+          <Route path="/pokebag" element={<Pokebag/>} />
+          <Route path="/:id" element={<Detail/>} />
+        </Routes>
       </Suspense>
     </Router>
   );
