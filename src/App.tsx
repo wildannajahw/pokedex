@@ -1,26 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { lazy, Suspense } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+// import PageLoader from "./components/commons/Loader/PageLoader";
 
-function App() {
+const Home = lazy(
+  () => import(/* webpackChunkName: "home-page" */ "./pages/index")
+);
+const Detail = lazy(
+  () => import(/* webpackChunkName: "detail-page" */ "./pages/detail")
+);
+const Pokebag = lazy(
+  () => import(/* webpackChunkName: "pokebag-page" */ "./pages/pokebag")
+);
+
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Suspense fallback>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/pokebag" component={Pokebag} />
+          <Route path="/:id" component={Detail} />
+        </Switch>
+      </Suspense>
+    </Router>
   );
 }
-
-export default App;
